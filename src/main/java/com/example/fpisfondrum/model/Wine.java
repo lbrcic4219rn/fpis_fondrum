@@ -2,7 +2,6 @@ package com.example.fpisfondrum.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +20,11 @@ public class Wine {
     @NotEmpty
     private String name;
 
+    @NotEmpty
+    private String imageLocation;
+
+    private Integer price;
+
     @ManyToOne
     @JoinColumn(name = "wine_style_id")
     private WineStyle style;
@@ -29,7 +33,9 @@ public class Wine {
     @JoinColumn(name = "wine_variety_id")
     private WineVariety variety;
 
-    public Wine(String name, WineStyle style, WineVariety variety) {
+    public Wine(String name, WineStyle style, WineVariety variety, String imageLocation, Integer price) {
+        this.imageLocation = imageLocation;
+        this.price = price;
         this.name = name;
         this.style = style;
         this.variety = variety;

@@ -15,11 +15,6 @@ public class WineController {
 
     private final WineService wineService;
 
-    @GetMapping("test")
-    public String test() {
-        return wineService.test();
-    }
-
     @PostMapping("search")
     public List<Wine> search(@RequestBody WineSearchRequest request) {
         return wineService.searchWines(request.getWineVarietyIds(), request.getWineStyleIds());

@@ -15,16 +15,12 @@ public class WineService {
 
     private final WineRepo wineRepo;
 
-    public String test() {
-        return "WineService test";
-    }
-
     public List<Wine> findAll() {
         return wineRepo.findAll();
     }
 
-    public Wine save(Wine wine) {
-        return wineRepo.save(wine);
+    public void save(Wine wine) {
+        wineRepo.save(wine);
     }
 
 

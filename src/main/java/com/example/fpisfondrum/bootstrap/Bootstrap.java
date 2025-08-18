@@ -13,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
@@ -25,7 +26,7 @@ public class Bootstrap implements CommandLineRunner {
     private final OrderService orderService;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         if (!wineService.findAll().isEmpty()) {
             return;
@@ -57,12 +58,12 @@ public class Bootstrap implements CommandLineRunner {
 
         //Create two copies for each combination of variety and style
         AtomicInteger globalCounter = new AtomicInteger();
-        wineVarieties.forEach(wineVariety -> {
-            wineStyles.forEach(wineStyle -> {
-                wineService.save(new Wine(String.format("Wine %d", globalCounter.getAndIncrement()), wineStyle, wineVariety));
-                wineService.save(new Wine(String.format("Wine %d", globalCounter.getAndIncrement()), wineStyle, wineVariety));
-            });
-        });
+        wineVarieties.forEach(wineVariety -> wineStyles.forEach(wineStyle -> {
+            int random1 = new Random().nextInt(1, 5);
+            int random2 = new Random().nextInt(1, 5);
+            wineService.save(new Wine(String.format("Wine %d", globalCounter.getAndIncrement()), wineStyle, wineVariety, "wine" + random1 + ".jpg", random1 * 100));
+            wineService.save(new Wine(String.format("Wine %d", globalCounter.getAndIncrement()), wineStyle, wineVariety,  "wine" + random2 + ".jpg", random2 * 100));
+        }));
 
         List<Wine> wines = wineService.findAll();
         orderService.save(new Order(wines.subList(0, 3)));
