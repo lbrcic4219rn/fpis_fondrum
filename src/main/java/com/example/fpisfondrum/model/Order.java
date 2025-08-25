@@ -17,7 +17,6 @@ public class Order {
     @GeneratedValue
     private Long id;
 
-    //to automatically save and update the user when the order is saved
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderWine> wines;
 }
