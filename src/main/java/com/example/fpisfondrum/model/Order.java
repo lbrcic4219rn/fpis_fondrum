@@ -13,15 +13,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Order {
-
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToMany
-    private List<Wine> wines;
-
-    public Order(List<Wine> wines) {
-        this.wines = wines;
-    }
+    //to automatically save and update the user when the order is saved
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderWine> wines;
 }

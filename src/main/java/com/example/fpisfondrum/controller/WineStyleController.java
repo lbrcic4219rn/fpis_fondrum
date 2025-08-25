@@ -1,7 +1,7 @@
 package com.example.fpisfondrum.controller;
 
 import com.example.fpisfondrum.model.WineStyle;
-import com.example.fpisfondrum.service.WineStyleService;
+import com.example.fpisfondrum.service.winestyle.WineStyleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

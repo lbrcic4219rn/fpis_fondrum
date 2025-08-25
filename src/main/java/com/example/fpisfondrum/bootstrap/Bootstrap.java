@@ -1,13 +1,11 @@
 package com.example.fpisfondrum.bootstrap;
 
-import com.example.fpisfondrum.model.Order;
-import com.example.fpisfondrum.model.Wine;
-import com.example.fpisfondrum.model.WineStyle;
-import com.example.fpisfondrum.model.WineVariety;
-import com.example.fpisfondrum.service.OrderService;
-import com.example.fpisfondrum.service.WineService;
-import com.example.fpisfondrum.service.WineStyleService;
-import com.example.fpisfondrum.service.WineVarietyService;
+import com.example.fpisfondrum.model.*;
+import com.example.fpisfondrum.request.OrderRequest;
+import com.example.fpisfondrum.service.order.OrderService;
+import com.example.fpisfondrum.service.wine.WineService;
+import com.example.fpisfondrum.service.winestyle.WineStyleService;
+import com.example.fpisfondrum.service.winevariety.WineVarietyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -64,8 +62,13 @@ public class Bootstrap implements CommandLineRunner {
             wineService.save(new Wine(String.format("Wine %d", globalCounter.getAndIncrement()), wineStyle, wineVariety, "wine" + random1 + ".jpg", random1 * 100));
             wineService.save(new Wine(String.format("Wine %d", globalCounter.getAndIncrement()), wineStyle, wineVariety,  "wine" + random2 + ".jpg", random2 * 100));
         }));
-
         List<Wine> wines = wineService.findAll();
-        orderService.save(new Order(wines.subList(0, 3)));
+        orderService.save(
+                List.of(
+                    new OrderRequest(wines.get(0).getId(), 1),
+                    new OrderRequest(wines.get(1).getId(), 2),
+                    new OrderRequest(wines.get(2).getId(), 3)
+                )
+        );
     }
 }
